@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PWHL Team Personality Test</title>
+<meta property="og:title" content="PWHL Team Personality Test ✨" />
+<meta property="og:description" content="Which PWHL team are you? Take the quiz to find out!" />
+<meta property="og:image" content="https://365hockeygirl.github.io/pwhl-quiz/preview.png" />
+<meta property="og:url" content="https://365hockeygirl.github.io/pwhl-quiz/pwhl-team-picker.html" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://365hockeygirl.github.io/pwhl-quiz/preview.png" />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    transition: background 1.2s ease;
+  }
+
+  body.result-mode {
+    background: #000;
+  }
+  
+.share-buttons {
+  margin-bottom: 24px;
+}
+
+.share-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  margin: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.share-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+  #sparkle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .quiz {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    width: 100%;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .progress-dot {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 99px;
+    transition: background 0.3s;
+  }
+
+  .progress-dot.done { background: #fff; }
+
+  .question-num {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 8px;
+  }
+
+  .question-text {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* 2-column grid for image options */
+  .options.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .opt {
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1.4;
+    width: 100%;
+  }
+
+  /* Image option style */
+  .opt.has-image {
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .opt.has-image .opt-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .opt.has-image .opt-label {
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .opt.has-image .opt-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    padding: 0 10px 8px;
+    display: block;
+  }
+
+  .opt:hover { border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.22); }
+
+  .opt.selected {
+    border: 2.5px solid transparent;
+    background-clip: padding-box;
+    outline: 2.5px solid #ff66c4;
+    outline-offset: -2px;
+    background: rgba(255, 102, 196, 0.25);
+    font-weight: 600;
+    box-shadow: 0 0 16px rgba(255, 102, 196, 0.5);
+  }
+
+  .opt.has-image.selected .opt-label {
+    color: #fff;
+  }
+
+  /* Checkmark badge on selected image options */
+  .opt.has-image {
+    position: relative;
+  }
+
+  .opt.has-image.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff66c4;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .opt .opt-sub {
+    display: block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* Spotify embed option */
+  .opt.has-video {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .opt.has-video .opt-video {
+    width: 100%;
+    height: 80px;
+    border: none;
+    display: block;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .opt.has-video .opt-label {
+    padding: 10px 14px 4px;
+    font-size: 14px;
+  }
+
+  .opt.has-video .opt-sub {
+    padding: 0 14px 10px;
+    display: block;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .btn-next {
+    margin-top: 20px;
+    width: 100%;
+    padding: 13px;
+    background: #fff;
+    color: #5170ff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+  
+  /* ---- TITLE SCREEN ---- */
+  #title-screen {
+    text-align: center;
+  }
+
+  body.title-mode {
+    background: #000;
+  }
+
+  .title-screen-h1 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .title-logo-img {
+    display: block;
+    margin: 32px auto 0 auto;
+    height: 60px;
+    width: auto;
+  }
+
+  .team-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 32px auto;
+    max-width: 420px;
+  }
+
+  .team-logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-logo-item img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    animation: titleFloat var(--float-duration) ease-in-out infinite;
+    animation-delay: var(--float-delay);
+    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 20px var(--glow-color));
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .btn-take-quiz {
+    display: inline-block;
+    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.2s;
+  }
+
+  .btn-take-quiz::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  .btn-take-quiz:hover { opacity: 0.88; }
+
+  /* Zoom-in transition when entering quiz */
+  @keyframes zoomIn {
+    0%   { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1);    opacity: 1; }
+  }
+
+  .zoom-in {
+    animation: zoomIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+.social-footer {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 28px 0 10px;
+}
+
+.social-footer a {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+
+  background: linear-gradient(135deg, #5170ff, #ff66c4);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-footer a:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+.social-footer svg {
+  width: 20px;
+  height: 20px;
+}
+
+  .result { display: none; text-align: center; }
+
+  .result-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 20px auto 28px;
+    display: block;
+  }
+
+  .result h2 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .result p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+    color: rgba(255,255,255,0.65);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .a-value {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .a-label {
+    color: rgba(255,255,255,0.65);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .a-value {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  .loading-text {
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    color: #fff;
+    line-height: 1.6;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid rgba(255,255,255,0.8);
+    width: 0;
+    max-width: calc(100vw - 48px);
+    margin: 0 auto;
+    animation: typewriter 2s steps(40) 0.3s forwards, blink 0.7s step-end infinite;
+  }
+
+  .loading-sig {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 14px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 2.4s forwards;
+  }
+
+  @keyframes typewriter {
+    from { width: 0; }
+    to   { width: 29ch; }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+
+  @media (max-width: 420px) {
+    .loading-text {
+      font-size: 18px;
+    }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .spiral-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .btn-subscribe {
+    display: inline-block;
+    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .btn-subscribe:hover { opacity: 0.85; }
+
+  #zine-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #00e5ff, #00e676, #00e5ff);
+    background-size: 200% 200%;
+    animation: quizFlash 2s ease-in-out infinite, zineFloat 3s ease-in-out infinite;
+    color: #000;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    margin-top: 32px;
+    filter: drop-shadow(0 0 8px rgba(0,229,118,0.8)) drop-shadow(0 0 18px rgba(0,229,255,0.5));
+  }
+
+  @keyframes quizFlash {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes zineFloat {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(2px, -4px); }
+    50%  { transform: translate(0px, -6px); }
+    75%  { transform: translate(-2px, -4px); }
+    100% { transform: translate(0px, 0px); }
+  }
+
+  #zine-link:hover { opacity: 0.88; }
+
+  .btn-restart {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-restart::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: shimmer 2.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  .btn-restart:hover { background: rgba(255,255,255,0.1); }
+  
+  /* FLOAT + HALO EFFECT FOR RESULT LOGO */
+
+.result-logo {
+  position: relative;
+  z-index: 1;
+  animation: logoFloat 4s ease-in-out infinite;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+/* glowing gradient halo behind logo */
+.result-logo::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  z-index: -1;
+
+  background: radial-gradient(
+    circle,
+    rgba(255,102,196,0.6) 0%,
+    rgba(81,112,255,0.45) 40%,
+    rgba(255,255,255,0.15) 65%,
+    transparent 75%
+  );
+
+  filter: blur(12px);
+  animation: haloPulse 5s ease-in-out infinite;
+}
+
+/* floating motion */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* gentle glow pulse */
+@keyframes haloPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.08); }
+
+}
+
+  /* Result screen answer summaries with gradient accents */
+  .answer-summary {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .answer-summary:last-child { margin-bottom: 0; }
+
+  #r-answers {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .answers-title {
+    font-family: 'Lora', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #fff !important;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sparkle-canvas"></canvas>
+
+<div class="quiz">
+
+  <!-- TITLE SCREEN -->
+  <div id="title-screen">
+    <h1 class="title-screen-h1">PWHL Team Personality Test✨</h1>
+    <div class="team-logo-grid" id="title-logo-grid"></div>
+    <button class="btn-take-quiz" onclick="enterQuiz()">take the quiz! 🔮</button>
+    <a href="https://www.youtube.com/shorts/92FS6VKtzFI" target="_blank" rel="noopener" title="🎉"><img src="https://365hockeygirl.github.io/pwhl-quiz/365HGWhite.png" alt="365 Hockey Girl" class="title-logo-img" /></a>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-wrapper" style="display:none;">
+    <h1>PWHL Team Personality Test✨</h1>
+    
+  <div id="quiz-body">
+    <div class="progress" id="progress"></div>
+    <div class="question-num" id="q-num"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+    <button class="btn-next" id="btn-next" disabled onclick="next()">Next →</button>
+  </div>
+
+  <div class="loading" id="loading" style="display:none;">
+    <div class="loading-text">finding your perfect team ✨</div>
+    <div class="loading-sig">— 365 Hockey Girl</div>
+  </div>
+
+  <div class="result" id="result">
+    <img class="result-logo" id="r-logo" src="" alt="Team logo" />
+    <h2 id="r-team"></h2>
+    <p id="r-desc"></p>
+
+  <a href="https://www.youtube.com/shorts/92FS6VKtzFI" target="_blank" rel="noopener" title="🎉"><img src="https://365hockeygirl.github.io/pwhl-quiz/365HGWhite.png" alt="365 Hockey Girl" style="display:block; margin: 0 auto 16px; height: 60px; width: auto; filter: drop-shadow(0 0 10px rgba(255,102,196,0.7)) drop-shadow(0 0 20px rgba(81,112,255,0.5));" /></a>
+        <!-- SHARE BUTTONS -->
+<div class="share-buttons">
+  <p style="color:#fff; margin-bottom:10px;">Share your result ✨</p>
+
+  <button class="share-btn" onclick="shareBluesky()">🦋 Bluesky</button>
+  <button class="share-btn" onclick="shareTwitter()">🐦 Twitter</button>
+  <button class="share-btn" onclick="shareSMS()">📱 Text</button>
+  <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+</div>
+    <div style="width:100%; text-align:center;">
+      <p style="color:rgba(255,255,255,0.85); font-size:14px; margin: 16px 0 8px; padding: 0 16px; display:inline-block;">Still need help picking a team? Read my complete guide in my newsletter!</p>
+    </div>
+    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/which-pwhl-team-should-you-pick-the-complete-guide" target="_blank" rel="noopener">PWHL Team Guide! ✨</a>
+    <br><br>
+    <a class="btn-subscribe" href="https://discord.gg/HSZEx8MBnh" target="_blank" rel="noopener">live game chat on discord 👾</a>
+    <br>
+    <a href="https://365hockeygirl.github.io/pwhl-rules-zine/zine.html" target="_blank" rel="noopener" id="zine-link">✂️ PWHL rules zine!</a>
+    <br><br>
+    
+    <div id="ig-embed-wrapper"></div>
+
+    <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;position:relative;">
+      <div style="position:absolute;inset:0;border-radius:12px;padding:1px;background:linear-gradient(135deg,#5170ff,#ff66c4);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;"></div>
+      <div class="answers-title" style="color:#fff !important;">Your answers:</div>
+      <div id="r-answers"></div>
+    </div>
+
+    <button class="btn-restart" onclick="restart()">Start over</button>
+    
+    <!-- SOCIAL ICONS -->
+<p style="text-align:center; color:rgba(255,255,255,0.7); font-size:13px; margin-top:32px; margin-bottom:12px; letter-spacing:0.5px;">find me on social media!</p>
+<div class="social-footer">
+  <a href="https://www.instagram.com/365_hockeygirl/" target="_blank" aria-label="Instagram">
+    <!-- Instagram SVG -->
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5a5 5 0 110 10 5 5 0 010-10zm6.5-.8a1.3 1.3 0 11-2.6 0 1.3 1.3 0 012.6 0zM12 9a3 3 0 100 6 3 3 0 000-6z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.tiktok.com/@365_hockeygirl" target="_blank" aria-label="TikTok">
+    <!-- TikTok SVG -->
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16 3c.3 1.7 1.7 3 3.5 3.2v2.3c-1.4-.1-2.7-.6-3.5-1.3v7.6a5.5 5.5 0 11-5.5-5.5c.3 0 .6 0 .9.1v2.3a3.2 3.2 0 102.3 3.1V3h2.3z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.youtube.com/@365HockeyGirl" target="_blank" aria-label="YouTube">
+    <!-- YouTube SVG -->
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23 7s-.2-1.6-.8-2.3c-.7-.9-1.5-.9-1.9-1C17.7 3.5 12 3.5 12 3.5h0s-5.7 0-8.3.2c-.4 0-1.2.1-1.9 1C1.2 5.4 1 7 1 7S.8 8.9.8 10.7v1.6C.8 14 .9 15.9.9 15.9s.2 1.6.8 2.3c.7.9 1.6.9 2 .9 1.5.1 6.3.2 8.3.2s6.8 0 8.3-.2c.4 0 1.2-.1 1.9-1 .6-.7.8-2.3.8-2.3s.1-1.9.1-3.7v-1.6C23.2 8.9 23 7 23 7zM9.8 14.8V8.8l5.5 3-5.5 3z"/>
+    </svg>
+  </a>
+</div><!-- end social footer -->
+  </div><!-- end quiz-wrapper -->
+</div><!-- end quiz -->
+
+<script>
+const TEAMS = [
+  "Seattle Torrent","Vancouver Goldeneyes","Boston Fleet","New York Sirens",
+  "Minnesota Frost","Montreal Victoire","Ottawa Charge","Toronto Sceptres"
+];
+
+const LOGOS = {
+  "Seattle Torrent":      "https://res.cloudinary.com/pwhl-low/image/upload/c_fill,w_624/q_auto/f_auto/SEA-t-11.4.25-logo-RGB-Lock-up-Primary_qhe8r8",
+  "Vancouver Goldeneyes": "https://res.cloudinary.com/pwhl-low/image/upload/c_fill,w_624/q_auto/f_auto/VAN-GE-11.4.25-LockupDark",
+  "Boston Fleet":         "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_96/q_auto/f_auto/PWHL-Boston-Fleet-Emblem_Primary_qv37gu",
+  "New York Sirens":      "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_144/q_auto/f_auto/PWHLNewYorkSirens-Logo-Primary_blqcfe",
+  "Minnesota Frost":      "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_96/q_auto/f_auto/PWHLMinnesotaFrost-Logo-Primary_qgglsu",
+  "Montreal Victoire":    "https://res.cloudinary.com/pwhl-low/image/upload/PWHL_Montreal_Victoire_Emblem_Primary-cropped_ptiglw",
+  "Ottawa Charge":        "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_144/q_auto/f_auto/OttawaChargeLogo_umto9w",
+  "Toronto Sceptres":     "https://res.cloudinary.com/pwhl-low/image/upload/PWHL_Toronto_Sceptres_Emblem_Primary_qohlxz"
+};
+
+const TEAM_INFO = {
+  "Seattle Torrent":      { desc: "As a Seattle Torrent fan, you’ll follow Captain America herself, 5× Olympian Hilary Knight, into battle. You listen to grunge, KEXP, and pop-punk. Your game day hype song? Can’t Hold Us by Macklemore. Your post-game snack? Dicks Drive-In. You’ll support this toothpaste team til the end. Welcome to the Show. — 365 Hockey Girl 🌊", instagram: "https://www.instagram.com/p/DR2vozQEgOc/" },
+  "Vancouver Goldeneyes": { desc: "As a Vancouver Goldeneyes fan, you have QUEEN ENERGY✨ You cheer for superstar Sarah Nurse, and have the sweetest goalie duo between Emerance Maschmeyer and Kristen Campbell. You get to be part of the largest crowd in the league… and did I mention you’re the only team with your own arena? Your team’s Flying V celly is so cute. Welcome to the flock! 🦆 — 365 Hockey Girl", instagram: "https://www.instagram.com/reel/DT3KyQtkbvQ/" },
+  "Boston Fleet":         { desc: "As a Boston Fleet fan, you adore caesar salad connoisseur Aerin Frankel AKA the green monster AKA the best goalie in the world. You cheered on Megan Keller as she got the gold medal game winner for USA and Alina Müller as she got the bronze medal game winner for Switzerland. There’s something special about this team this year. Everybody can feel it. As part of the Crew, you’re probably rocking a stylish sailor hat.⚓  — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DUoGM2gkRB1/?img_index=1" },
+  "New York Sirens":      { desc: "As a New York Sirens fan, you have been through hell and back. Other teams complain about losing games but they don’t know pain. Young stars like Sarah Fillier, Kristyna Kaltounkova, and Casey O’Brien are giving you something new: hope. You’re excited to cheer them on at Madison Square Garden. Could this year really be different? WEE-WOO 🚨 — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DUJLTV5kSJQ/?img_index=1" },
+  "Minnesota Frost":      { desc: "As a Minnesota Frost fan, all you do is win. As the only team to ever win the Walter Cup, the rest of the league might view you as an enemy, but Frost fans take care of each other. You love cheering for black cat golden retriever duo Taylor Heise and Grace Zumwinkle. FEEL THE FROST 💜 — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DKIyn3AsXxG/?img_index=1&igsh=YW96am9td2RwNWNk" },
+  "Montreal Victoire":    { desc: "As a Montreal Victoire fan, your hero is Captain Clutch — the GOAT, Marie-Philip Poulin. You love watching Poulin and her wife Laura Stacey light it up together, fueled by arena poutine and the electric crowd at Place Bell. You have the best logo in the league. Victoire is totally winning the Cup this year.🏆 — 365 Hockey Girl 💖", instagram: "https://www.instagram.com/p/DTG3MEBgSff" },
+  "Ottawa Charge":        { desc: "As an Ottawa Charge fan, you know coach Carla Was Right About Everything. You stan goalie Gwyn Philips. You celebrate women in uniform. Your crowd always has the best vibes, and you’ll support this team through thick and thin. Welcome to the family! — 365 Hockey Girl ⚡", instagram: "https://www.instagram.com/reel/DSeAALEjXBI" },
+  "Toronto Sceptres":     { desc: "Emma Maltais?! As a Toronto Sceptres fan, you’re Canada Down — chaotic, fearless, and absolutely the life of the party. But behind the smiles and energy is a relentless competitor who never quits. Are you ready for it? — 365 Hockey Girl 💪", instagram: "https://www.instagram.com/reel/DToZcWnAMK_" }
+};
+
+// ============================================================
+// MEDIA — update image paths and YouTube video IDs here
+// Images should be uploaded to your GitHub repo
+// YouTube video ID is the part after ?v= in the URL
+// ============================================================
+const MEDIA = {
+  // Q1: Food images — upload to img/food/ folder
+  food: {
+    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/food/ottawa.png",
+    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/food/montreal.png",
+    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/newyork.png",
+    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/food/toronto.png",
+    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/food/boston.png",
+    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/minnesota.png",
+    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/food/vancouver.png",
+    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/seattle.png"
+  },
+  // Q2: Superhero images — upload to img/superhero/ folder
+  superhero: {
+    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/seattle.png",
+    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/ottawa.png",
+    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/toronto.png",
+    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/vancouver.png",
+    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/newyork.png",
+    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/boston.png",
+    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/montreal.png",
+    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/minnesota.png"
+  },
+  // Q3: Dream job images — upload to img/jobs/ folder
+  jobs: {
+    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/seattle.png",
+    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/vancouver.png",
+    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/ottawa.png",
+    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/montreal.png",
+    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/toronto.png",
+    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/boston.png",
+    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/newyork.png",
+    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/minnesota.png"
+  },
+  // Q4: Song Spotify track IDs (the part after /track/ in the Spotify URL)
+  songs: {
+    "Boston Fleet":         "7pu8AhGUxHZSCWTkQ2eb5M",  // Bad Reputation - Joan Jett
+    "Toronto Sceptres":     "52HAHV1j93s5B8GoTNI7DJ",  // Oh, Pretty Woman - Roy Orbison
+    "Vancouver Goldeneyes": "42nSaPdT6g3ZIMHmKLlP2p",  // Let's Get Loud - Jennifer Lopez
+    "New York Sirens":      "2igwFfvr1OAGX9SKDCPBwO",  // Empire State of Mind - Jay-Z ft. Alicia Keys
+    "Seattle Torrent":      "6SpLc7EXZIPpy0sVko0aoU",  // Misery Business - Paramore
+    "Minnesota Frost":      "7hQJA50XrCWABAu5v6QZ4i",  // Don't Stop Me Now - Queen
+    "Montreal Victoire":    "5iqrbO0fhuLMiy9tYGanv6",  // C'est la vie - Khaled
+    "Ottawa Charge":        "65wPd1hhDlTzg3ODzjkWPw"   // Gonna Celebrate - The Phantoms
+  },
+  // Q4: Player images — upload to img/players/ folder
+  players: {
+    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/seattle.png",
+    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/players/vancouver.png",
+    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/players/boston.png",
+    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/newyork.png",
+    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/minnesota.png",
+    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/players/montreal.png",
+    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/players/ottawa.png",
+    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/players/toronto.png"
+  }
+};
+
+const questions = [
+  {
+    text: "Pick a food:",
+    mediaKey: "food",
+    options: [
+      { label: "Dessert shaped like a baseball? ⚾", sub: "", team: "Ottawa Charge" },
+      { label: "Poutine 🍟", sub: "", team: "Montreal Victoire" },
+      { label: "Pizza 🍕", sub: "", team: "New York Sirens" },
+      { label: "Jamaican beef patty 🫓", sub: "", team: "Toronto Sceptres" },
+      { label: "Caesar salad 🥗", sub: "", team: "Boston Fleet" },
+      { label: "Hot dish 🥘", sub: "", team: "Minnesota Frost" },
+      { label: "Japadog 🌭", sub: "", team: "Vancouver Goldeneyes" },
+      { label: "Dick's Drive-In 🍔", sub: "", team: "Seattle Torrent" }
+    ]
+  },
+  {
+    text: "Pick a superhero:",
+    mediaKey: "superhero",
+    options: [
+      { label: "Captain America 🛡️", sub: "", team: "Seattle Torrent" },
+      { label: "Storm ⚡", sub: "", team: "Ottawa Charge" },
+      { label: "Supergirl ⭐", sub: "", team: "Toronto Sceptres" },
+      { label: "Kate Bishop (Hawkeye) 🏹", sub: "", team: "Vancouver Goldeneyes" },
+      { label: "Spider-Woman 🕷️", sub: "", team: "New York Sirens" },
+      { label: "She-Hulk 💚", sub: "", team: "Boston Fleet" },
+      { label: "Captain Marvel 🦸‍♀️", sub: "", team: "Montreal Victoire" },
+      { label: "Thanos 💜", sub: "", team: "Minnesota Frost" }
+    ]
+  },
+  {
+    text: "Pick your dream job:",
+    mediaKey: "jobs",
+    options: [
+      { label: "Sailor ⚓", sub: "", team: "Boston Fleet" },
+      { label: "Pop star 🎤", sub: "", team: "Toronto Sceptres" },
+      { label: "Ice cream shop owner 🍦", sub: "", team: "Minnesota Frost" },
+      { label: "Ornithologist 🐦", sub: "", team: "Vancouver Goldeneyes" },
+      { label: "Firefighter 🔥", sub: "", team: "Ottawa Charge" },
+      { label: "Lawyer ⚖️", sub: "", team: "Montreal Victoire" },
+      { label: "Hacker 💻", sub: "", team: "Seattle Torrent" },
+      { label: "EMT 🚑", sub: "", team: "New York Sirens" }
+    ]
+  },
+  {
+    text: "Pick a song:",
+    mediaKey: "songs",
+    type: "songs",
+    options: [
+      { label: "Bad Reputation 🎸", sub: "Joan Jett", team: "Boston Fleet" },
+      { label: "Pretty Woman 🌹", sub: "Roy Orbison", team: "Toronto Sceptres" },
+      { label: "Let's Get Loud 🎉", sub: "Jennifer Lopez", team: "Vancouver Goldeneyes" },
+      { label: "Empire State of Mind 🗽", sub: "Jay-Z ft. Alicia Keys", team: "New York Sirens" },
+      { label: "Misery Business 🖤", sub: "Paramore", team: "Seattle Torrent" },
+      { label: "Don't Stop Me Now 🚀", sub: "Queen", team: "Minnesota Frost" },
+      { label: "C'est la vie 🕺", sub: "Khaled", team: "Montreal Victoire" },
+      { label: "Gonna Celebrate 🥳", sub: "The Phantoms", team: "Ottawa Charge" }
+    ]
+  },
+  {
+    text: "Pick a player:",
+    mediaKey: "players",
+    options: [
+      { label: "Hilary Knight", sub: "", team: "Seattle Torrent" },
+      { label: "Sarah Nurse", sub: "", team: "Vancouver Goldeneyes" },
+      { label: "Megan Keller", sub: "", team: "Boston Fleet" },
+      { label: "Sarah Fillier", sub: "", team: "New York Sirens" },
+      { label: "Taylor Heise", sub: "", team: "Minnesota Frost" },
+      { label: "Marie-Philip Poulin", sub: "", team: "Montreal Victoire" },
+      { label: "Gwyn Philips", sub: "", team: "Ottawa Charge" },
+      { label: "Emma Maltais", sub: "", team: "Toronto Sceptres" }
+    ]
+  },
+  {
+    text: "Canada or USA (or neither)?",
+    type: "country",
+    options: [
+      { label: "Y'all know I'm Canada down 🍁", country: "canada" },
+      { label: "Play Free Bird 🦅", country: "usa" },
+      { label: "No preference! 🌍", country: "none" }
+    ]
+  }
+];
+
+// currentQuestion tracks which question the user is on (0-indexed)
+let currentQuestion = 0;
+let scores = {};
+let answers = [];
+
+function init() {
+  scores = {};
+  TEAMS.forEach(t => scores[t] = 0);
+  answers = [];
+  currentQuestion = 0;
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestion];
+
+  const prog = document.getElementById('progress');
+  prog.innerHTML = '';
+  for (let i = 0; i < questions.length; i++) {
+    const d = document.createElement('div');
+    d.className = 'progress-dot' + (i < currentQuestion ? ' done' : '');
+    prog.appendChild(d);
+  }
+
+  document.getElementById('q-num').textContent = 'Question ' + (currentQuestion + 1) + ' of ' + questions.length;
+  document.getElementById('q-text').textContent = q.text;
+
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+
+  const isSongs = q.type === 'songs';
+  const hasImages = q.mediaKey && !isSongs;
+
+  // Set grid class for image questions
+  opts.className = 'options' + (hasImages ? ' image-grid' : '');
+
+  q.options.forEach((o, i) => {
+    const btn = document.createElement('button');
+    const isSelected = answers[currentQuestion] === i;
+    const team = o.team;
+
+    if (isSongs) {
+      // Spotify embed option — use named iframes so we can control them
+      const trackId = team ? MEDIA.songs[team] : null;
+      const hasTrack = trackId && !trackId.startsWith('PLACEHOLDER');
+      btn.className = 'opt' + (hasTrack ? ' has-video' : '') + (isSelected ? ' selected' : '');
+      btn.innerHTML = (hasTrack
+        ? `<iframe class="opt-video" id="spotify-${i}" src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+        : '') +
+        `<span class="opt-label">${o.label}</span>` +
+        (o.sub ? `<span class="opt-sub">${o.sub}</span>` : '');
+    } else if (hasImages) {
+      // Image grid option
+      const imgSrc = MEDIA[q.mediaKey][team];
+      btn.className = 'opt has-image' + (isSelected ? ' selected' : '');
+      btn.innerHTML =
+        `<img class="opt-img" src="${imgSrc}" alt="${o.label}" loading="lazy" onerror="this.style.display='none'">` +
+        `<span class="opt-label">${o.label}</span>` +
+        (o.sub ? `<span class="opt-sub">${o.sub}</span>` : '');
+    } else {
+      // Plain text option (country question)
+      btn.className = 'opt' + (isSelected ? ' selected' : '');
+      btn.innerHTML = o.label + (o.sub ? '<span class="opt-sub">' + o.sub + '</span>' : '');
+    }
+
+    btn.onclick = () => selectOption(i);
+    opts.appendChild(btn);
+  });
+
+  const nextBtn = document.getElementById('btn-next');
+  nextBtn.textContent = currentQuestion === questions.length - 1 ? 'See my team ✨' : 'Next →';
+  nextBtn.disabled = answers[currentQuestion] === undefined;
+}
+
+function selectOption(i) {
+  answers[currentQuestion] = i;
+  document.querySelectorAll('.opt').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+const CANADIAN_TEAMS = ["Vancouver Goldeneyes", "Montreal Victoire", "Ottawa Charge", "Toronto Sceptres"];
+const US_TEAMS = ["Seattle Torrent", "Boston Fleet", "New York Sirens", "Minnesota Frost"];
+
+function next() {
+  const q = questions[currentQuestion];
+  const chosen = q.options[answers[currentQuestion]];
+
+  if (q.type === 'country') {
+    // Award 2 bonus points to matching teams
+    if (chosen.country === 'canada') {
+      CANADIAN_TEAMS.forEach(t => scores[t] += 2);
+    } else if (chosen.country === 'usa') {
+      US_TEAMS.forEach(t => scores[t] += 2);
+    }
+    // 'none' adds no points
+  } else {
+    scores[chosen.team]++;
+  }
+
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-body').style.display = 'none';
+  document.getElementById('loading').style.display = 'block';
+
+  // Reset typewriter animation so it replays
+  const loadingText = document.querySelector('.loading-text');
+  const loadingSig = document.querySelector('.loading-sig');
+  loadingText.style.animation = 'none';
+  loadingSig.style.animation = 'none';
+  loadingText.offsetHeight; // force reflow
+  loadingText.style.animation = '';
+  loadingSig.style.animation = '';
+
+  // Trigger sparkle rush mode
+  sparkleRush = true;
+
+  setTimeout(function() {
+    // Stop rush, fade to black, show result
+    sparkleRush = false;
+    document.body.classList.add('result-mode');
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    let winner = sorted[0][0];
+    const topScore = sorted[0][1];
+    const tied = sorted.filter(([team, score]) => score === topScore).map(([team]) => team);
+    if (tied.length > 1) {
+      const playerTeam = questions[4].options[answers[4]].team;
+      if (tied.includes(playerTeam)) {
+        winner = playerTeam;
+      }
+    }
+
+    document.getElementById('r-logo').src = LOGOS[winner];
+    document.getElementById('r-logo').style.filter = 'drop-shadow(0 0 18px ' + GLOW_COLORS[winner] + ') drop-shadow(0 0 32px ' + GLOW_COLORS[winner] + ')';
+    document.getElementById('r-team').textContent = winner;
+    document.getElementById('r-desc').textContent = TEAM_INFO[winner].desc;
+
+    const igUrl = TEAM_INFO[winner].instagram;
+    const igWrapper = document.getElementById('ig-embed-wrapper');
+    igWrapper.innerHTML = '';
+    igWrapper.style.cssText = '';
+
+    if (igUrl && igUrl.indexOf('PLACEHOLDER') === -1) {
+      igWrapper.style.cssText = 'margin:20px auto 24px;max-width:400px;border-radius:10px;overflow:hidden;background:#fff;';
+      igWrapper.innerHTML = '<blockquote class="instagram-media" data-instgrm-permalink="' + igUrl + '" data-instgrm-version="14" style="width:100%;margin:0;"></blockquote>';
+      // Always remove and re-add embed.js to force a fresh process
+      const oldScript = document.getElementById('ig-script');
+      if (oldScript) oldScript.remove();
+      // Small delay to let blockquote render into DOM first
+      setTimeout(function() {
+        if (window.instgrm) {
+          window.instgrm.Embeds.process();
+        } else {
+          const s = document.createElement('script');
+          s.id = 'ig-script';
+          s.src = 'https://www.instagram.com/embed.js';
+          s.async = true;
+          document.body.appendChild(s);
+        }
+      }, 100);
+    }
+
+    document.getElementById('r-answers').innerHTML = questions.map((q, i) => {
+      if (answers[i] === undefined) return '';
+      const chosen = q.options[answers[i]];
+      if (!chosen) return '';
+      return '<div class="answer-summary"><div class="a-label">' + q.text + '</div><div class="a-value">' + chosen.label + '</div></div>';
+    }).join('');
+
+  }, 3500);
+}
+
+function restart() {
+  init();
+  document.body.classList.remove('result-mode');
+  document.body.classList.add('title-mode');
+  document.getElementById('quiz-body').style.display = 'block';
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('quiz-wrapper').style.display = 'none';
+  const titleScreen = document.getElementById('title-screen');
+  titleScreen.style.display = 'block';
+  titleScreen.style.opacity = '1';
+  titleScreen.style.transform = 'scale(1)';
+}
+
+// ---- Title screen ----
+const GLOW_COLORS = {
+  "Seattle Torrent":      "#00bcd4",
+  "Vancouver Goldeneyes": "#f9c80e",
+  "Boston Fleet":         "#4caf50",
+  "New York Sirens":      "#ff6600",
+  "Minnesota Frost":      "#9c27b0",
+  "Montreal Victoire":    "#3f51b5",
+  "Ottawa Charge":        "#ffe600",
+  "Toronto Sceptres":     "#2196f3"
+};
+
+// Build logo grid on title screen
+const grid = document.getElementById('title-logo-grid');
+Object.entries(LOGOS).forEach(function([team, url], i) {
+  const item = document.createElement('div');
+  item.className = 'team-logo-item';
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = team;
+  img.style.setProperty('--float-duration', (3 + (i % 4) * 0.5) + 's');
+  img.style.setProperty('--float-delay', (i * 0.2) + 's');
+  img.style.setProperty('--glow-color', GLOW_COLORS[team] || '#fff');
+  item.appendChild(img);
+  grid.appendChild(item);
+});
+
+// Set black background for title screen
+document.body.classList.add('title-mode');
+
+function enterQuiz() {
+  const titleScreen = document.getElementById('title-screen');
+  const quizWrapper = document.getElementById('quiz-wrapper');
+
+  // Fade out title screen
+  titleScreen.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  titleScreen.style.opacity = '0';
+  titleScreen.style.transform = 'scale(1.08)';
+
+  setTimeout(function() {
+    titleScreen.style.display = 'none';
+    // Switch to gradient background
+    document.body.classList.remove('title-mode');
+    // Show quiz with zoom-in effect
+    quizWrapper.style.display = 'block';
+    quizWrapper.classList.add('zoom-in');
+    init();
+    renderQuestion();
+  }, 400);
+}
+
+init();
+renderQuestion();
+
+// Stop other Spotify players when one is clicked
+// ---- Sparkle animation ----
+const sparkleCanvas = document.getElementById('sparkle-canvas');
+const sparkleCtx = sparkleCanvas.getContext('2d');
+let sparkles = [];
+let sparkleRush = false;
+
+function resizeCanvas() {
+  sparkleCanvas.width = window.innerWidth;
+  sparkleCanvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+function createSparkle(rush) {
+  return {
+    x: randomBetween(0, sparkleCanvas.width),
+    y: rush ? sparkleCanvas.height + 10 : randomBetween(0, sparkleCanvas.height),
+    size: rush ? randomBetween(4, 10) : randomBetween(2, 6),
+    opacity: randomBetween(0.4, 1),
+    speedY: rush ? randomBetween(-8, -20) : randomBetween(-0.4, -1.2),
+    speedX: rush ? randomBetween(-1, 1) : randomBetween(-0.3, 0.3),
+    twinkleSpeed: randomBetween(0.01, 0.03),
+    twinkleDir: 1,
+    shape: Math.random() > 0.5 ? 'star' : 'dot'
+  };
+}
+
+for (let i = 0; i < 60; i++) sparkles.push(createSparkle(false));
+
+function drawStar(x, y, size, opacity) {
+  sparkleCtx.save();
+  sparkleCtx.translate(x, y);
+  sparkleCtx.globalAlpha = opacity;
+  sparkleCtx.fillStyle = '#fff';
+  sparkleCtx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    const angle = (i / 4) * Math.PI * 2;
+    const inner = size * 0.3;
+    sparkleCtx.lineTo(Math.cos(angle) * size, Math.sin(angle) * size);
+    sparkleCtx.lineTo(Math.cos(angle + Math.PI / 4) * inner, Math.sin(angle + Math.PI / 4) * inner);
+  }
+  sparkleCtx.closePath();
+  sparkleCtx.fill();
+  sparkleCtx.restore();
+}
+
+function animateSparkles() {
+  sparkleCtx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height);
+
+  // In rush mode, flood with extra sparkles from the bottom
+  if (sparkleRush && sparkles.length < 300) {
+    for (let i = 0; i < 8; i++) sparkles.push(createSparkle(true));
+  } else if (!sparkleRush && sparkles.length > 60) {
+    sparkles = sparkles.slice(0, 60);
+  }
+
+  sparkles.forEach(s => {
+    s.opacity += s.twinkleSpeed * s.twinkleDir;
+    if (s.opacity >= 1 || s.opacity <= 0.1) s.twinkleDir *= -1;
+    s.y += s.speedY;
+    s.x += s.speedX;
+    if (s.y < -10) {
+      if (sparkleRush) {
+        // Remove offscreen rush sparkles
+        s.y = sparkleCanvas.height + 10;
+        s.x = randomBetween(0, sparkleCanvas.width);
+      } else {
+        s.y = sparkleCanvas.height + 10;
+        s.x = randomBetween(0, sparkleCanvas.width);
+      }
+    }
+    if (s.shape === 'star') {
+      drawStar(s.x, s.y, s.size, s.opacity);
+    } else {
+      sparkleCtx.save();
+      sparkleCtx.globalAlpha = s.opacity;
+      sparkleCtx.fillStyle = '#fff';
+      sparkleCtx.beginPath();
+      sparkleCtx.arc(s.x, s.y, s.size / 2, 0, Math.PI * 2);
+      sparkleCtx.fill();
+      sparkleCtx.restore();
+    }
+  });
+  requestAnimationFrame(animateSparkles);
+}
+animateSparkles();
+
+ /* ===== SHARE FUNCTIONS ===== */
+
+function getShareText() {
+  const team = document.getElementById('r-team').textContent;
+  return `I just took the PWHL Personality Quiz and got ${team}! ✨`;
+}
+
+function getShareURL() {
+  return window.location.href;
+}
+
+function shareTwitter() {
+  const text = encodeURIComponent(getShareText());
+  const url = encodeURIComponent(getShareURL());
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+}
+
+function shareBluesky() {
+  const text = encodeURIComponent(getShareText() + " " + getShareURL());
+  window.open(`https://bsky.app/intent/compose?text=${text}`, '_blank');
+}
+
+function shareSMS() {
+  const text = encodeURIComponent(getShareText() + " " + getShareURL());
+  window.location.href = `sms:?&body=${text}`;
+}
+
+function copyLink() {
+  const text = getShareText() + " " + getShareURL();
+  navigator.clipboard.writeText(text);
+  alert("Copied to clipboard!");
+}
+</script>
+</body>
+</html>
