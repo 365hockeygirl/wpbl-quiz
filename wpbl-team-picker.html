@@ -1,22 +1,66 @@
+<!--
+=======================================================================
+  IMAGE PATHS — upload these files to your wpbl-quiz GitHub repo.
+  Base URL: https://365hockeygirl.github.io/wpbl-quiz/
+
+  /preview.png                    social share preview image
+  /365HGWhite.png                 your logo (title screen)
+
+  /img/logos/hunters.png          Boston Hunters logo
+  /img/logos/queens.png           Los Angeles Queens logo
+  /img/logos/firebells.png        San Francisco Firebells logo
+  /img/logos/heights.png          New York Heights logo
+
+  /img/pets/hunters.png           Q1 - pet
+  /img/pets/queens.png
+  /img/pets/firebells.png
+  /img/pets/heights.png
+
+  /img/beverages/hunters.png      Q2 - beverage
+  /img/beverages/queens.png
+  /img/beverages/firebells.png
+  /img/beverages/heights.png
+
+  /img/books/hunters.png          Q3 - book
+  /img/books/queens.png
+  /img/books/firebells.png
+  /img/books/heights.png
+
+  (Q4 - walk-up song uses Spotify embeds, no images needed)
+
+  /img/historical/hunters.png     Q5 - historical figure
+  /img/historical/queens.png
+  /img/historical/firebells.png
+  /img/historical/heights.png
+
+  /img/players/hunters.png        Q6 - player
+  /img/players/queens.png
+  /img/players/firebells.png
+  /img/players/heights.png
+
+  All the image URLs below in the <script> are built from IMG_BASE —
+  update that one constant if your username or repo name ever changes.
+=======================================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PWHL Team Personality Test</title>
-<meta property="og:title" content="PWHL Team Personality Test ✨" />
-<meta property="og:description" content="Which PWHL team are you? Take the quiz to find out!" />
-<meta property="og:image" content="https://365hockeygirl.github.io/pwhl-quiz/preview.png" />
-<meta property="og:url" content="https://365hockeygirl.github.io/pwhl-quiz/pwhl-team-picker.html" />
+<title>WPBL Team Personality Test</title>
+<meta property="og:title" content="WPBL Team Personality Test ✨" />
+<meta property="og:description" content="Which WPBL team are you? Take the quiz to find out!" />
+<meta property="og:image" content="https://365hockeygirl.github.io/wpbl-quiz/preview.png" />
+<meta property="og:url" content="https://365hockeygirl.github.io/wpbl-quiz/wpbl-team-picker.html" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://365hockeygirl.github.io/pwhl-quiz/preview.png" />
+<meta name="twitter:image" content="https://365hockeygirl.github.io/wpbl-quiz/preview.png" />
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    background: linear-gradient(135deg, #0ea5e9, #10b981);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -174,7 +218,7 @@
   .opt.selected {
     border: 2.5px solid transparent;
     background-clip: padding-box;
-    outline: 2.5px solid #ff66c4;
+    outline: 2.5px solid #10b981;
     outline-offset: -2px;
     background: rgba(255, 102, 196, 0.25);
     font-weight: 600;
@@ -195,7 +239,7 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #ff66c4;
+    background: #10b981;
     color: #fff;
     font-size: 13px;
     font-weight: 700;
@@ -250,7 +294,7 @@
     width: 100%;
     padding: 13px;
     background: #fff;
-    color: #5170ff;
+    color: #0ea5e9;
     border: none;
     border-radius: 10px;
     font-size: 14px;
@@ -317,7 +361,7 @@
 
   .btn-take-quiz {
     display: inline-block;
-    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    background: linear-gradient(135deg, #0ea5e9, #10b981);
     color: #fff;
     border: none;
     padding: 14px 40px;
@@ -370,7 +414,7 @@
   color: white;
   text-decoration: none;
 
-  background: linear-gradient(135deg, #5170ff, #ff66c4);
+  background: linear-gradient(135deg, #0ea5e9, #10b981);
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -409,20 +453,6 @@
     max-width: 380px;
     margin-left: auto;
     margin-right: auto;
-  }
-
-
-    color: rgba(255,255,255,0.65);
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 3px;
-  }
-
-  .a-value {
-    font-size: 14px;
-    color: #fff;
-    font-weight: 500;
   }
 
   .a-label {
@@ -484,10 +514,6 @@
     }
   }
 
-  @keyframes blink {
-    50% { border-color: transparent; }
-  }
-
   @keyframes fadeIn {
     to { opacity: 1; }
   }
@@ -501,7 +527,7 @@
 
   .btn-subscribe {
     display: inline-block;
-    background: linear-gradient(135deg, #5170ff, #ff66c4);
+    background: linear-gradient(135deg, #0ea5e9, #10b981);
     color: #fff;
     text-decoration: none;
     padding: 12px 28px;
@@ -513,40 +539,6 @@
   }
 
   .btn-subscribe:hover { opacity: 0.85; }
-
-  #zine-link {
-    display: inline-block;
-    background: linear-gradient(135deg, #00e5ff, #00e676, #00e5ff);
-    background-size: 200% 200%;
-    animation: quizFlash 2s ease-in-out infinite, zineFloat 3s ease-in-out infinite;
-    color: #000;
-    text-decoration: none;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    margin-top: 32px;
-    filter: drop-shadow(0 0 8px rgba(0,229,118,0.8)) drop-shadow(0 0 18px rgba(0,229,255,0.5));
-  }
-
-  @keyframes quizFlash {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes zineFloat {
-    0%   { transform: translate(0px, 0px); }
-    25%  { transform: translate(2px, -4px); }
-    50%  { transform: translate(0px, -6px); }
-    75%  { transform: translate(-2px, -4px); }
-    100% { transform: translate(0px, 0px); }
-  }
-
-  #zine-link:hover { opacity: 0.88; }
 
   .btn-restart {
     background: transparent;
@@ -599,8 +591,8 @@
 
   background: radial-gradient(
     circle,
-    rgba(255,102,196,0.6) 0%,
-    rgba(81,112,255,0.45) 40%,
+    rgba(16,185,129,0.6) 0%,
+    rgba(14,165,233,0.45) 40%,
     rgba(255,255,255,0.15) 65%,
     transparent 75%
   );
@@ -658,15 +650,15 @@
 
   <!-- TITLE SCREEN -->
   <div id="title-screen">
-    <h1 class="title-screen-h1">PWHL Team Personality Test✨</h1>
+    <h1 class="title-screen-h1">WPBL Team Personality Test✨</h1>
     <div class="team-logo-grid" id="title-logo-grid"></div>
     <button class="btn-take-quiz" onclick="enterQuiz()">take the quiz! 🔮</button>
-    <a href="https://www.youtube.com/shorts/92FS6VKtzFI" target="_blank" rel="noopener" title="🎉"><img src="https://365hockeygirl.github.io/pwhl-quiz/365HGWhite.png" alt="365 Hockey Girl" class="title-logo-img" /></a>
+    <a href="https://365hockeygirl.beehiiv.com/p/august-livestream-link-wpbl-watch-along-with-sophia-from-snatch-magazine" target="_blank" rel="noopener" title="🎉"><img src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="365 Hockey Girl" class="title-logo-img" /></a>
   </div>
 
   <!-- QUIZ -->
   <div id="quiz-wrapper" style="display:none;">
-    <h1>PWHL Team Personality Test✨</h1>
+    <h1>WPBL Team Personality Test✨</h1>
     
   <div id="quiz-body">
     <div class="progress" id="progress"></div>
@@ -686,7 +678,6 @@
     <h2 id="r-team"></h2>
     <p id="r-desc"></p>
 
-  <a href="https://www.youtube.com/shorts/92FS6VKtzFI" target="_blank" rel="noopener" title="🎉"><img src="https://365hockeygirl.github.io/pwhl-quiz/365HGWhite.png" alt="365 Hockey Girl" style="display:block; margin: 0 auto 16px; height: 60px; width: auto; filter: drop-shadow(0 0 10px rgba(255,102,196,0.7)) drop-shadow(0 0 20px rgba(81,112,255,0.5));" /></a>
         <!-- SHARE BUTTONS -->
 <div class="share-buttons">
   <p style="color:#fff; margin-bottom:10px;">Share your result ✨</p>
@@ -697,25 +688,20 @@
   <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
 </div>
     <div style="width:100%; text-align:center;">
-      <p style="color:rgba(255,255,255,0.85); font-size:14px; margin: 16px 0 8px; padding: 0 16px; display:inline-block;">Still need help picking a team? Read my complete guide in my newsletter!</p>
+      <p style="color:rgba(255,255,255,0.85); font-size:14px; margin: 16px 0 8px; padding: 0 16px; display:inline-block;">Still need help picking a team? Subscribe to my newsletter and come to my WPBL livestream on August 16!</p>
     </div>
-    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/which-pwhl-team-should-you-pick-the-complete-guide" target="_blank" rel="noopener">PWHL Team Guide! ✨</a>
+    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/august-livestream-link-wpbl-watch-along-with-sophia-from-snatch-magazine" target="_blank" rel="noopener">WPBL Livestream! ✨</a>
     <br><br>
-    <a class="btn-subscribe" href="https://discord.gg/HSZEx8MBnh" target="_blank" rel="noopener">live game chat on discord 👾</a>
-    <br>
-    <a href="https://365hockeygirl.github.io/pwhl-rules-zine/zine.html" target="_blank" rel="noopener" id="zine-link">✂️ PWHL rules zine!</a>
-    <br><br>
-    
     <div id="ig-embed-wrapper"></div>
 
     <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;position:relative;">
-      <div style="position:absolute;inset:0;border-radius:12px;padding:1px;background:linear-gradient(135deg,#5170ff,#ff66c4);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;"></div>
+      <div style="position:absolute;inset:0;border-radius:12px;padding:1px;background:linear-gradient(135deg,#0ea5e9,#10b981);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;"></div>
       <div class="answers-title" style="color:#fff !important;">Your answers:</div>
       <div id="r-answers"></div>
     </div>
 
     <button class="btn-restart" onclick="restart()">Start over</button>
-    
+
     <!-- SOCIAL ICONS -->
 <p style="text-align:center; color:rgba(255,255,255,0.7); font-size:13px; margin-top:32px; margin-bottom:12px; letter-spacing:0.5px;">find me on social media!</p>
 <div class="social-footer">
@@ -740,179 +726,159 @@
     </svg>
   </a>
 </div><!-- end social footer -->
+  </div><!-- end result -->
   </div><!-- end quiz-wrapper -->
 </div><!-- end quiz -->
 
 <script>
+// ============================================================
+// IMG_BASE — change this one line if your GitHub username or
+// repo name ever changes. Every image path below is built from it.
+// ============================================================
+const IMG_BASE = "https://365hockeygirl.github.io/wpbl-quiz";
+
 const TEAMS = [
-  "Seattle Torrent","Vancouver Goldeneyes","Boston Fleet","New York Sirens",
-  "Minnesota Frost","Montreal Victoire","Ottawa Charge","Toronto Sceptres"
+  "Boston Hunters","Los Angeles Queens","San Francisco Firebells","New York Heights"
 ];
 
+// ============================================================
+// LOGOS — team logo images, upload to img/logos/ folder
+// ============================================================
 const LOGOS = {
-  "Seattle Torrent":      "https://res.cloudinary.com/pwhl-low/image/upload/c_fill,w_624/q_auto/f_auto/SEA-t-11.4.25-logo-RGB-Lock-up-Primary_qhe8r8",
-  "Vancouver Goldeneyes": "https://res.cloudinary.com/pwhl-low/image/upload/c_fill,w_624/q_auto/f_auto/VAN-GE-11.4.25-LockupDark",
-  "Boston Fleet":         "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_96/q_auto/f_auto/PWHL-Boston-Fleet-Emblem_Primary_qv37gu",
-  "New York Sirens":      "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_144/q_auto/f_auto/PWHLNewYorkSirens-Logo-Primary_blqcfe",
-  "Minnesota Frost":      "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_96/q_auto/f_auto/PWHLMinnesotaFrost-Logo-Primary_qgglsu",
-  "Montreal Victoire":    "https://res.cloudinary.com/pwhl-low/image/upload/PWHL_Montreal_Victoire_Emblem_Primary-cropped_ptiglw",
-  "Ottawa Charge":        "https://res.cloudinary.com/pwhl-low/image/upload/c_auto,h_144/q_auto/f_auto/OttawaChargeLogo_umto9w",
-  "Toronto Sceptres":     "https://res.cloudinary.com/pwhl-low/image/upload/PWHL_Toronto_Sceptres_Emblem_Primary_qohlxz"
+  "Boston Hunters":          `${IMG_BASE}/img/logos/hunters.png`,
+  "Los Angeles Queens":      `${IMG_BASE}/img/logos/queens.png`,
+  "San Francisco Firebells": `${IMG_BASE}/img/logos/firebells.png`,
+  "New York Heights":        `${IMG_BASE}/img/logos/heights.png`
 };
 
 const TEAM_INFO = {
-  "Seattle Torrent":      { desc: "As a Seattle Torrent fan, you’ll follow Captain America herself, 5× Olympian Hilary Knight, into battle. You listen to grunge, KEXP, and pop-punk. Your game day hype song? Can’t Hold Us by Macklemore. Your post-game snack? Dicks Drive-In. You’ll support this toothpaste team til the end. Welcome to the Show. — 365 Hockey Girl 🌊", instagram: "https://www.instagram.com/p/DR2vozQEgOc/" },
-  "Vancouver Goldeneyes": { desc: "As a Vancouver Goldeneyes fan, you have QUEEN ENERGY✨ You cheer for superstar Sarah Nurse, and have the sweetest goalie duo between Emerance Maschmeyer and Kristen Campbell. You get to be part of the largest crowd in the league… and did I mention you’re the only team with your own arena? Your team’s Flying V celly is so cute. Welcome to the flock! 🦆 — 365 Hockey Girl", instagram: "https://www.instagram.com/reel/DT3KyQtkbvQ/" },
-  "Boston Fleet":         { desc: "As a Boston Fleet fan, you adore caesar salad connoisseur Aerin Frankel AKA the green monster AKA the best goalie in the world. You cheered on Megan Keller as she got the gold medal game winner for USA and Alina Müller as she got the bronze medal game winner for Switzerland. There’s something special about this team this year. Everybody can feel it. As part of the Crew, you’re probably rocking a stylish sailor hat.⚓  — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DUoGM2gkRB1/?img_index=1" },
-  "New York Sirens":      { desc: "As a New York Sirens fan, you have been through hell and back. Other teams complain about losing games but they don’t know pain. Young stars like Sarah Fillier, Kristyna Kaltounkova, and Casey O’Brien are giving you something new: hope. You’re excited to cheer them on at Madison Square Garden. Could this year really be different? WEE-WOO 🚨 — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DUJLTV5kSJQ/?img_index=1" },
-  "Minnesota Frost":      { desc: "As a Minnesota Frost fan, all you do is win. As the only team to ever win the Walter Cup, the rest of the league might view you as an enemy, but Frost fans take care of each other. You love cheering for black cat golden retriever duo Taylor Heise and Grace Zumwinkle. FEEL THE FROST 💜 — 365 Hockey Girl", instagram: "https://www.instagram.com/p/DKIyn3AsXxG/?img_index=1&igsh=YW96am9td2RwNWNk" },
-  "Montreal Victoire":    { desc: "As a Montreal Victoire fan, your hero is Captain Clutch — the GOAT, Marie-Philip Poulin. You love watching Poulin and her wife Laura Stacey light it up together, fueled by arena poutine and the electric crowd at Place Bell. You have the best logo in the league. Victoire is totally winning the Cup this year.🏆 — 365 Hockey Girl 💖", instagram: "https://www.instagram.com/p/DTG3MEBgSff" },
-  "Ottawa Charge":        { desc: "As an Ottawa Charge fan, you know coach Carla Was Right About Everything. You stan goalie Gwyn Philips. You celebrate women in uniform. Your crowd always has the best vibes, and you’ll support this team through thick and thin. Welcome to the family! — 365 Hockey Girl ⚡", instagram: "https://www.instagram.com/reel/DSeAALEjXBI" },
-  "Toronto Sceptres":     { desc: "Emma Maltais?! As a Toronto Sceptres fan, you’re Canada Down — chaotic, fearless, and absolutely the life of the party. But behind the smiles and energy is a relentless competitor who never quits. Are you ready for it? — 365 Hockey Girl 💪", instagram: "https://www.instagram.com/reel/DToZcWnAMK_" }
+  "New York Heights": {
+    desc: "As a New York Heights fan, you are always the coolest person in the room and you embrace the diversity that makes New York City great! 🏙️ I hope you like home runs… because Denae Benites will be hitting a lot of them! You honor Dorothy Height, the African-American civil rights and women's rights activist that your team is named after!",
+    instagram: "https://www.instagram.com/p/Db2A7ftAO36/?img_index=1"
+  },
+  "Los Angeles Queens": {
+    desc: "As a Los Angeles Queens Fan, you are a natural leader, and you are a champion for your community! 👑You love cheering on some of the most iconic women in sports, such as Mo'ne Davis, Ayami Sato, and Ashton Lansdell! Your team name honors Lizzie Murphy, known as \"The Queen of Baseball\", who was the first woman to play baseball against major league players!",
+    instagram: "https://www.instagram.com/p/DbrdPg0iF_W/"
+  },
+  "Boston Hunters": {
+    desc: "As a Boston Hunters fan, you are smart, tactical, and powerful, following your gameplan to achieve your goals! You love cheering on Alli Schroder, Denver Bryant, and Sabrina Robinson! You honor Harriot Hunt, the American medical doctor and women's rights activist that your team is named after!",
+    instagram: "https://www.instagram.com/reel/DbkACAiDS2a/"
+  },
+  "San Francisco Firebells": {
+    desc: "As a San Francisco Firebells fan, you are eccentric, adventurous, and constantly re-inventing yourself! You love cheering on Kelsie Whitmore, Amanda Gianelloni, and Jill Albayati. You honor Lillie Hitchcock Coit, an heiress who defied gender norms and who was a patron of San Francisco's volunteer firefighters.",
+    instagram: "https://www.instagram.com/reel/Dbws7XHEr2_/"
+  }
 };
 
 // ============================================================
-// MEDIA — update image paths and YouTube video IDs here
+// MEDIA — update image paths here
 // Images should be uploaded to your GitHub repo
-// YouTube video ID is the part after ?v= in the URL
 // ============================================================
 const MEDIA = {
-  // Q1: Food images — upload to img/food/ folder
-  food: {
-    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/food/ottawa.png",
-    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/food/montreal.png",
-    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/newyork.png",
-    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/food/toronto.png",
-    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/food/boston.png",
-    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/minnesota.png",
-    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/food/vancouver.png",
-    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/food/seattle.png"
+  // Q1: Pet images — upload to img/pets/ folder
+  pets: {
+    "Boston Hunters":          `${IMG_BASE}/img/pets/hunters.png`,
+    "Los Angeles Queens":      `${IMG_BASE}/img/pets/queens.png`,
+    "San Francisco Firebells": `${IMG_BASE}/img/pets/firebells.png`,
+    "New York Heights":        `${IMG_BASE}/img/pets/heights.png`
   },
-  // Q2: Superhero images — upload to img/superhero/ folder
-  superhero: {
-    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/seattle.png",
-    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/ottawa.png",
-    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/toronto.png",
-    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/vancouver.png",
-    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/newyork.png",
-    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/boston.png",
-    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/montreal.png",
-    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/superhero/minnesota.png"
+  // Q2: Beverage images — upload to img/beverages/ folder
+  beverages: {
+    "New York Heights":        `${IMG_BASE}/img/beverages/heights.png`,
+    "San Francisco Firebells": `${IMG_BASE}/img/beverages/firebells.png`,
+    "Boston Hunters":          `${IMG_BASE}/img/beverages/hunters.png`,
+    "Los Angeles Queens":      `${IMG_BASE}/img/beverages/queens.png`
   },
-  // Q3: Dream job images — upload to img/jobs/ folder
-  jobs: {
-    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/seattle.png",
-    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/vancouver.png",
-    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/ottawa.png",
-    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/montreal.png",
-    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/toronto.png",
-    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/boston.png",
-    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/newyork.png",
-    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/jobs/minnesota.png"
+  // Q3: Book cover images — upload to img/books/ folder
+  books: {
+    "New York Heights":        `${IMG_BASE}/img/books/heights.png`,
+    "Los Angeles Queens":      `${IMG_BASE}/img/books/queens.png`,
+    "Boston Hunters":          `${IMG_BASE}/img/books/hunters.png`,
+    "San Francisco Firebells": `${IMG_BASE}/img/books/firebells.png`
   },
-  // Q4: Song Spotify track IDs (the part after /track/ in the Spotify URL)
+  // Q4: Walk-up song Spotify track IDs (the part after /track/ in the Spotify URL)
   songs: {
-    "Boston Fleet":         "7pu8AhGUxHZSCWTkQ2eb5M",  // Bad Reputation - Joan Jett
-    "Toronto Sceptres":     "52HAHV1j93s5B8GoTNI7DJ",  // Oh, Pretty Woman - Roy Orbison
-    "Vancouver Goldeneyes": "42nSaPdT6g3ZIMHmKLlP2p",  // Let's Get Loud - Jennifer Lopez
-    "New York Sirens":      "2igwFfvr1OAGX9SKDCPBwO",  // Empire State of Mind - Jay-Z ft. Alicia Keys
-    "Seattle Torrent":      "6SpLc7EXZIPpy0sVko0aoU",  // Misery Business - Paramore
-    "Minnesota Frost":      "7hQJA50XrCWABAu5v6QZ4i",  // Don't Stop Me Now - Queen
-    "Montreal Victoire":    "5iqrbO0fhuLMiy9tYGanv6",  // C'est la vie - Khaled
-    "Ottawa Charge":        "65wPd1hhDlTzg3ODzjkWPw"   // Gonna Celebrate - The Phantoms
+    "Boston Hunters":          "PLACEHOLDER_HUNTERS",   // Takedown - KPop Demon Hunters
+    "Los Angeles Queens":      "PLACEHOLDER_QUEENS",    // The Beginning - RuPaul
+    "San Francisco Firebells": "PLACEHOLDER_FIREBELLS", // It Gets So Hot
+    "New York Heights":        "PLACEHOLDER_HEIGHTS"    // 212 - Azealia Banks
   },
-  // Q4: Player images — upload to img/players/ folder
+  // Q5: Historical figure images — upload to img/historical/ folder
+  historical: {
+    "New York Heights":        `${IMG_BASE}/img/historical/heights.png`,
+    "San Francisco Firebells": `${IMG_BASE}/img/historical/firebells.png`,
+    "Boston Hunters":          `${IMG_BASE}/img/historical/hunters.png`,
+    "Los Angeles Queens":      `${IMG_BASE}/img/historical/queens.png`
+  },
+  // Q6: Player images — upload to img/players/ folder
   players: {
-    "Seattle Torrent":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/seattle.png",
-    "Vancouver Goldeneyes": "https://365hockeygirl.github.io/pwhl-quiz/img/players/vancouver.png",
-    "Boston Fleet":         "https://365hockeygirl.github.io/pwhl-quiz/img/players/boston.png",
-    "New York Sirens":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/newyork.png",
-    "Minnesota Frost":      "https://365hockeygirl.github.io/pwhl-quiz/img/players/minnesota.png",
-    "Montreal Victoire":    "https://365hockeygirl.github.io/pwhl-quiz/img/players/montreal.png",
-    "Ottawa Charge":        "https://365hockeygirl.github.io/pwhl-quiz/img/players/ottawa.png",
-    "Toronto Sceptres":     "https://365hockeygirl.github.io/pwhl-quiz/img/players/toronto.png"
+    "New York Heights":        `${IMG_BASE}/img/players/heights.png`,
+    "San Francisco Firebells": `${IMG_BASE}/img/players/firebells.png`,
+    "Boston Hunters":          `${IMG_BASE}/img/players/hunters.png`,
+    "Los Angeles Queens":      `${IMG_BASE}/img/players/queens.png`
   }
 };
 
 const questions = [
   {
-    text: "Pick a food:",
-    mediaKey: "food",
+    text: "Choose a pet:",
+    mediaKey: "pets",
     options: [
-      { label: "Dessert shaped like a baseball? ⚾", sub: "", team: "Ottawa Charge" },
-      { label: "Poutine 🍟", sub: "", team: "Montreal Victoire" },
-      { label: "Pizza 🍕", sub: "", team: "New York Sirens" },
-      { label: "Jamaican beef patty 🫓", sub: "", team: "Toronto Sceptres" },
-      { label: "Caesar salad 🥗", sub: "", team: "Boston Fleet" },
-      { label: "Hot dish 🥘", sub: "", team: "Minnesota Frost" },
-      { label: "Japadog 🌭", sub: "", team: "Vancouver Goldeneyes" },
-      { label: "Dick's Drive-In 🍔", sub: "", team: "Seattle Torrent" }
+      { label: "Orange cat that thinks he's a lion 🐈", sub: "", team: "Boston Hunters" },
+      { label: "Bees 🐝", sub: "", team: "Los Angeles Queens" },
+      { label: "Red panda 🐼", sub: "", team: "San Francisco Firebells" },
+      { label: "Rock 🪨", sub: "", team: "New York Heights" }
     ]
   },
   {
-    text: "Pick a superhero:",
-    mediaKey: "superhero",
+    text: "Choose a beverage:",
+    mediaKey: "beverages",
     options: [
-      { label: "Captain America 🛡️", sub: "", team: "Seattle Torrent" },
-      { label: "Storm ⚡", sub: "", team: "Ottawa Charge" },
-      { label: "Supergirl ⭐", sub: "", team: "Toronto Sceptres" },
-      { label: "Kate Bishop (Hawkeye) 🏹", sub: "", team: "Vancouver Goldeneyes" },
-      { label: "Spider-Woman 🕷️", sub: "", team: "New York Sirens" },
-      { label: "She-Hulk 💚", sub: "", team: "Boston Fleet" },
-      { label: "Captain Marvel 🦸‍♀️", sub: "", team: "Montreal Victoire" },
-      { label: "Thanos 💜", sub: "", team: "Minnesota Frost" }
+      { label: "Cocktail 🍸", sub: "", team: "New York Heights" },
+      { label: "Boba 🧋", sub: "", team: "San Francisco Firebells" },
+      { label: "Tea 🍵", sub: "", team: "Boston Hunters" },
+      { label: "Matcha 🍵", sub: "", team: "Los Angeles Queens" }
     ]
   },
   {
-    text: "Pick your dream job:",
-    mediaKey: "jobs",
+    text: "Choose a book:",
+    mediaKey: "books",
     options: [
-      { label: "Sailor ⚓", sub: "", team: "Boston Fleet" },
-      { label: "Pop star 🎤", sub: "", team: "Toronto Sceptres" },
-      { label: "Ice cream shop owner 🍦", sub: "", team: "Minnesota Frost" },
-      { label: "Ornithologist 🐦", sub: "", team: "Vancouver Goldeneyes" },
-      { label: "Firefighter 🔥", sub: "", team: "Ottawa Charge" },
-      { label: "Lawyer ⚖️", sub: "", team: "Montreal Victoire" },
-      { label: "Hacker 💻", sub: "", team: "Seattle Torrent" },
-      { label: "EMT 🚑", sub: "", team: "New York Sirens" }
+      { label: "The City We Became 📚", sub: "N.K. Jemisin", team: "New York Heights" },
+      { label: "Poetry by Wanda Coleman 📖", sub: "", team: "Los Angeles Queens" },
+      { label: "The Handmaid's Tale 📕", sub: "Margaret Atwood", team: "Boston Hunters" },
+      { label: "Last Night at the Telegraph Club 📗", sub: "Malinda Lo", team: "San Francisco Firebells" }
     ]
   },
   {
-    text: "Pick a song:",
+    text: "Choose a walk-up song:",
     mediaKey: "songs",
     type: "songs",
     options: [
-      { label: "Bad Reputation 🎸", sub: "Joan Jett", team: "Boston Fleet" },
-      { label: "Pretty Woman 🌹", sub: "Roy Orbison", team: "Toronto Sceptres" },
-      { label: "Let's Get Loud 🎉", sub: "Jennifer Lopez", team: "Vancouver Goldeneyes" },
-      { label: "Empire State of Mind 🗽", sub: "Jay-Z ft. Alicia Keys", team: "New York Sirens" },
-      { label: "Misery Business 🖤", sub: "Paramore", team: "Seattle Torrent" },
-      { label: "Don't Stop Me Now 🚀", sub: "Queen", team: "Minnesota Frost" },
-      { label: "C'est la vie 🕺", sub: "Khaled", team: "Montreal Victoire" },
-      { label: "Gonna Celebrate 🥳", sub: "The Phantoms", team: "Ottawa Charge" }
+      { label: "Takedown 🎤", sub: "from KPop Demon Hunters", team: "Boston Hunters" },
+      { label: "The Beginning 🎶", sub: "RuPaul", team: "Los Angeles Queens" },
+      { label: "It Gets So Hot 🔥", sub: "", team: "San Francisco Firebells" },
+      { label: "212 🎧", sub: "Azealia Banks", team: "New York Heights" }
     ]
   },
   {
-    text: "Pick a player:",
+    text: "Choose a historical figure:",
+    mediaKey: "historical",
+    options: [
+      { label: "Dorothy Height", sub: "", team: "New York Heights" },
+      { label: "Lillie Hitchcock Coit", sub: "", team: "San Francisco Firebells" },
+      { label: "Harriot Hunt", sub: "", team: "Boston Hunters" },
+      { label: "Lizzie Murphy", sub: "", team: "Los Angeles Queens" }
+    ]
+  },
+  {
+    text: "Choose a player:",
     mediaKey: "players",
     options: [
-      { label: "Hilary Knight", sub: "", team: "Seattle Torrent" },
-      { label: "Sarah Nurse", sub: "", team: "Vancouver Goldeneyes" },
-      { label: "Megan Keller", sub: "", team: "Boston Fleet" },
-      { label: "Sarah Fillier", sub: "", team: "New York Sirens" },
-      { label: "Taylor Heise", sub: "", team: "Minnesota Frost" },
-      { label: "Marie-Philip Poulin", sub: "", team: "Montreal Victoire" },
-      { label: "Gwyn Philips", sub: "", team: "Ottawa Charge" },
-      { label: "Emma Maltais", sub: "", team: "Toronto Sceptres" }
-    ]
-  },
-  {
-    text: "Canada or USA (or neither)?",
-    type: "country",
-    options: [
-      { label: "Y'all know I'm Canada down 🍁", country: "canada" },
-      { label: "Play Free Bird 🦅", country: "usa" },
-      { label: "No preference! 🌍", country: "none" }
+      { label: "Denae Benites", sub: "", team: "New York Heights" },
+      { label: "Mo'ne Davis", sub: "", team: "San Francisco Firebells" },
+      { label: "Allie Schroeder", sub: "", team: "Boston Hunters" },
+      { label: "Kelsie Whitmore", sub: "", team: "Los Angeles Queens" }
     ]
   }
 ];
@@ -976,7 +942,7 @@ function renderQuestion() {
         `<span class="opt-label">${o.label}</span>` +
         (o.sub ? `<span class="opt-sub">${o.sub}</span>` : '');
     } else {
-      // Plain text option (country question)
+      // Plain text option
       btn.className = 'opt' + (isSelected ? ' selected' : '');
       btn.innerHTML = o.label + (o.sub ? '<span class="opt-sub">' + o.sub + '</span>' : '');
     }
@@ -998,24 +964,11 @@ function selectOption(i) {
   document.getElementById('btn-next').disabled = false;
 }
 
-const CANADIAN_TEAMS = ["Vancouver Goldeneyes", "Montreal Victoire", "Ottawa Charge", "Toronto Sceptres"];
-const US_TEAMS = ["Seattle Torrent", "Boston Fleet", "New York Sirens", "Minnesota Frost"];
-
 function next() {
   const q = questions[currentQuestion];
   const chosen = q.options[answers[currentQuestion]];
 
-  if (q.type === 'country') {
-    // Award 2 bonus points to matching teams
-    if (chosen.country === 'canada') {
-      CANADIAN_TEAMS.forEach(t => scores[t] += 2);
-    } else if (chosen.country === 'usa') {
-      US_TEAMS.forEach(t => scores[t] += 2);
-    }
-    // 'none' adds no points
-  } else {
-    scores[chosen.team]++;
-  }
+  scores[chosen.team]++;
 
   if (currentQuestion < questions.length - 1) {
     currentQuestion++;
@@ -1054,7 +1007,8 @@ function showResult() {
     const topScore = sorted[0][1];
     const tied = sorted.filter(([team, score]) => score === topScore).map(([team]) => team);
     if (tied.length > 1) {
-      const playerTeam = questions[4].options[answers[4]].team;
+      // Tiebreaker: use the "player" question pick (last question)
+      const playerTeam = questions[questions.length - 1].options[answers[answers.length - 1]].team;
       if (tied.includes(playerTeam)) {
         winner = playerTeam;
       }
@@ -1116,14 +1070,10 @@ function restart() {
 
 // ---- Title screen ----
 const GLOW_COLORS = {
-  "Seattle Torrent":      "#00bcd4",
-  "Vancouver Goldeneyes": "#f9c80e",
-  "Boston Fleet":         "#4caf50",
-  "New York Sirens":      "#ff6600",
-  "Minnesota Frost":      "#9c27b0",
-  "Montreal Victoire":    "#3f51b5",
-  "Ottawa Charge":        "#ffe600",
-  "Toronto Sceptres":     "#2196f3"
+  "Boston Hunters":          "#ff8c00",
+  "Los Angeles Queens":      "#b8860b",
+  "San Francisco Firebells": "#9b59b6",
+  "New York Heights":        "#87ceeb"
 };
 
 // Build logo grid on title screen
@@ -1168,7 +1118,6 @@ function enterQuiz() {
 init();
 renderQuestion();
 
-// Stop other Spotify players when one is clicked
 // ---- Sparkle animation ----
 const sparkleCanvas = document.getElementById('sparkle-canvas');
 const sparkleCtx = sparkleCanvas.getContext('2d');
@@ -1233,14 +1182,8 @@ function animateSparkles() {
     s.y += s.speedY;
     s.x += s.speedX;
     if (s.y < -10) {
-      if (sparkleRush) {
-        // Remove offscreen rush sparkles
-        s.y = sparkleCanvas.height + 10;
-        s.x = randomBetween(0, sparkleCanvas.width);
-      } else {
-        s.y = sparkleCanvas.height + 10;
-        s.x = randomBetween(0, sparkleCanvas.width);
-      }
+      s.y = sparkleCanvas.height + 10;
+      s.x = randomBetween(0, sparkleCanvas.width);
     }
     if (s.shape === 'star') {
       drawStar(s.x, s.y, s.size, s.opacity);
@@ -1262,7 +1205,7 @@ animateSparkles();
 
 function getShareText() {
   const team = document.getElementById('r-team').textContent;
-  return `I just took the PWHL Personality Quiz and got ${team}! ✨`;
+  return `I just took the WPBL Personality Quiz and got ${team}! ✨`;
 }
 
 function getShareURL() {
