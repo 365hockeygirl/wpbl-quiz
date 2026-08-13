@@ -46,7 +46,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
 <title>WPBL Team Quiz</title>
 <meta property="og:title" content="✨WPBL Team Quiz✨" />
 <meta property="og:description" content="Which WPBL team are you? Take the quiz to find out!" />
@@ -945,6 +946,14 @@ let currentQuestion = 0;
 let scores = {};
 let answers = [];
 
+// Keeps the browser's status bar / address bar tint (iOS Safari, Android
+// Chrome) in sync with the current page background, so it doesn't show a
+// mismatched color behind the clock/wifi icons.
+function setThemeColor(color) {
+  const meta = document.getElementById('theme-color-meta');
+  if (meta) meta.setAttribute('content', color);
+}
+
 function init() {
   scores = {};
   TEAMS.forEach(t => scores[t] = 0);
@@ -1058,6 +1067,7 @@ function showResult() {
     sparkleRush = false;
     document.body.classList.add('result-mode');
     document.documentElement.classList.add('result-mode');
+    setThemeColor('#000000');
     document.getElementById('loading').style.display = 'none';
     document.getElementById('result').style.display = 'block';
 
@@ -1119,6 +1129,7 @@ function restart() {
   document.documentElement.classList.remove('result-mode');
   document.body.classList.add('title-mode');
   document.documentElement.classList.add('title-mode');
+  setThemeColor('#000000');
   document.getElementById('quiz-body').style.display = 'block';
   document.getElementById('loading').style.display = 'none';
   document.getElementById('result').style.display = 'none';
@@ -1155,6 +1166,7 @@ Object.entries(LOGOS).forEach(function([team, url], i) {
 // Set black background for title screen
 document.body.classList.add('title-mode');
   document.documentElement.classList.add('title-mode');
+setThemeColor('#000000');
 
 function enterQuiz() {
   const titleScreen = document.getElementById('title-screen');
@@ -1170,6 +1182,7 @@ function enterQuiz() {
     // Switch to gradient background
     document.body.classList.remove('title-mode');
     document.documentElement.classList.remove('title-mode');
+    setThemeColor('#0ea5e9');
     // Show quiz with zoom-in effect
     quizWrapper.style.display = 'block';
     quizWrapper.classList.add('zoom-in');
