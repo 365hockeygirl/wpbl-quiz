@@ -4,7 +4,8 @@
   Base URL: https://365hockeygirl.github.io/wpbl-quiz/
 
   /preview.png                    social share preview image
-  /365HGWhite.png                 your logo (title screen)
+  /365HGWhite.png                 your logo (title screen, floating bg, results page)
+  /365HGBlack.png                 your logo, black version (browser tab favicon)
 
   /img/logos/hunters.png          Boston Hunters logo
   /img/logos/queens.png           Los Angeles Queens logo
@@ -46,9 +47,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WPBL Team Quiz</title>
+<link rel="icon" type="image/png" href="https://365hockeygirl.github.io/wpbl-quiz/365HGBlack.png">
 <meta property="og:title" content="✨WPBL Team Quiz✨" />
 <meta property="og:description" content="Which WPBL team are you? Take the quiz to find out!" />
 <meta property="og:image" content="https://365hockeygirl.github.io/wpbl-quiz/preview.png" />
@@ -59,20 +60,10 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html {
-    min-height: 100%;
-    background: linear-gradient(135deg, #0ea5e9, #10b981);
-  }
-
-  html.title-mode, html.result-mode {
-    background: #000;
-  }
-
   body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #0ea5e9, #10b981);
     min-height: 100vh;
-    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -743,9 +734,9 @@
   <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
 </div>
     <div style="width:100%; text-align:center;">
-      <p style="color:rgba(255,255,255,0.85); font-size:14px; margin: 16px 0 8px; padding: 0 16px; display:inline-block;">Still need help picking a team? Come to my WPBL livestream on August 16!</p>
+      <p style="color:rgba(255,255,255,0.85); font-size:14px; margin: 16px 0 8px; padding: 0 16px; display:inline-block;">Still need help picking a team?</p>
     </div>
-    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/august-livestream-link-wpbl-watch-along-with-sophia-from-snatch-magazine" target="_blank" rel="noopener">WPBL Livestream! ✨</a>
+    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/wpbl-quiz-which-team-should-you-pick" target="_blank" rel="noopener">Read my WPBL Guide!✨</a>
     <br><br>
     <div id="ig-embed-wrapper"></div>
 
@@ -758,9 +749,9 @@
     <button class="btn-restart" onclick="restart()">Start over</button>
 
     <!-- SOCIAL ICONS -->
-<p style="text-align:center; color:rgba(255,255,255,0.7); font-size:13px; margin-top:32px; margin-bottom:12px; letter-spacing:0.5px;">Do you like PWHL? 🏒</p>
+<p style="text-align:center; color:rgba(255,255,255,0.7); font-size:13px; margin-top:32px; margin-bottom:12px; letter-spacing:0.5px;">Come to my WPBL livestream on August 16! 🏒</p>
 
-    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/subscribe" target="_blank" rel="noopener">Subscribe to my newsletter!✨</a>
+    <a class="btn-subscribe" href="https://365hockeygirl.beehiiv.com/p/august-livestream-link-wpbl-watch-along-with-sophia-from-snatch-magazine" target="_blank" rel="noopener">WPBL Livestream Info!✨</a>
    <br>
 <div class="social-footer">
   <a href="https://www.instagram.com/365_hockeygirl/" target="_blank" aria-label="Instagram">
@@ -946,14 +937,6 @@ let currentQuestion = 0;
 let scores = {};
 let answers = [];
 
-// Keeps the browser's status bar / address bar tint (iOS Safari, Android
-// Chrome) in sync with the current page background, so it doesn't show a
-// mismatched color behind the clock/wifi icons.
-function setThemeColor(color) {
-  const meta = document.getElementById('theme-color-meta');
-  if (meta) meta.setAttribute('content', color);
-}
-
 function init() {
   scores = {};
   TEAMS.forEach(t => scores[t] = 0);
@@ -1066,8 +1049,6 @@ function showResult() {
     // Stop rush, fade to black, show result
     sparkleRush = false;
     document.body.classList.add('result-mode');
-    document.documentElement.classList.add('result-mode');
-    setThemeColor('#000000');
     document.getElementById('loading').style.display = 'none';
     document.getElementById('result').style.display = 'block';
 
@@ -1126,10 +1107,7 @@ function showResult() {
 function restart() {
   init();
   document.body.classList.remove('result-mode');
-  document.documentElement.classList.remove('result-mode');
   document.body.classList.add('title-mode');
-  document.documentElement.classList.add('title-mode');
-  setThemeColor('#000000');
   document.getElementById('quiz-body').style.display = 'block';
   document.getElementById('loading').style.display = 'none';
   document.getElementById('result').style.display = 'none';
@@ -1165,8 +1143,6 @@ Object.entries(LOGOS).forEach(function([team, url], i) {
 
 // Set black background for title screen
 document.body.classList.add('title-mode');
-  document.documentElement.classList.add('title-mode');
-setThemeColor('#000000');
 
 function enterQuiz() {
   const titleScreen = document.getElementById('title-screen');
@@ -1181,8 +1157,6 @@ function enterQuiz() {
     titleScreen.style.display = 'none';
     // Switch to gradient background
     document.body.classList.remove('title-mode');
-    document.documentElement.classList.remove('title-mode');
-    setThemeColor('#0ea5e9');
     // Show quiz with zoom-in effect
     quizWrapper.style.display = 'block';
     quizWrapper.classList.add('zoom-in');
