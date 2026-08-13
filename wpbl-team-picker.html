@@ -100,6 +100,40 @@
     z-index: 0;
   }
 
+  /* Floating background logos — shown only while taking the quiz */
+  #bg-logos {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    display: none;
+  }
+
+  #bg-logos .bg-logo-img {
+    position: absolute;
+    bottom: -120px;
+    width: 70px;
+    height: auto;
+    opacity: 0.35;
+    filter: drop-shadow(0 0 10px rgba(16,185,129,0.7)) drop-shadow(0 0 20px rgba(14,165,233,0.5));
+    animation: bgLogoFloat linear infinite;
+  }
+
+  @keyframes bgLogoFloat {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% { opacity: 0.35; }
+    90% { opacity: 0.35; }
+    100% {
+      transform: translateY(-115vh) rotate(8deg);
+      opacity: 0;
+    }
+  }
+
   .quiz {
     position: relative;
     z-index: 1;
@@ -645,6 +679,14 @@
 <body>
 
 <canvas id="sparkle-canvas"></canvas>
+<div id="bg-logos">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:6%;  width:56px; animation-duration:14s; animation-delay:0s;">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:22%; width:80px; animation-duration:19s; animation-delay:3s;">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:40%; width:44px; animation-duration:11s; animation-delay:6s;">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:58%; width:66px; animation-duration:16s; animation-delay:1.5s;">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:75%; width:50px; animation-duration:13s; animation-delay:8s;">
+  <img class="bg-logo-img" src="https://365hockeygirl.github.io/wpbl-quiz/365HGWhite.png" alt="" style="left:88%; width:72px; animation-duration:18s; animation-delay:4.5s;">
+</div>
 
 <div class="quiz">
 
@@ -870,7 +912,7 @@ const questions = [
     text: "Choose a historical figure:",
     mediaKey: "historical",
     options: [
-      { label: "Dorothy Height", sub: "African-American civil rights and women's rights activist", team: "New York Heights" },
+      { label: "Dorothy Height", sub: 'Known as the "Godmother of the Civil Rights Movement"', team: "New York Heights" },
       { label: "Lillie Hitchcock Coit", sub: "Heiress, eccentric personality, and honorary firefighter", team: "San Francisco Firebells" },
       { label: "Harriot Hunt", sub: "One of the first women to practice medicine professionally in the USA", team: "Boston Hunters" },
       { label: "Lizzie Murphy", sub: "The first woman to play baseball against major league players in 1922", team: "Los Angeles Queens" }
@@ -987,6 +1029,7 @@ function next() {
 function showResult() {
   document.getElementById('quiz-body').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
+  document.getElementById('bg-logos').style.display = 'none';
 
   // Reset typewriter animation so it replays
   const loadingText = document.querySelector('.loading-text');
@@ -1115,6 +1158,8 @@ function enterQuiz() {
     // Show quiz with zoom-in effect
     quizWrapper.style.display = 'block';
     quizWrapper.classList.add('zoom-in');
+    // Show floating background logos while taking the quiz
+    document.getElementById('bg-logos').style.display = 'block';
     init();
     renderQuestion();
   }, 400);
